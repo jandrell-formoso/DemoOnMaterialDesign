@@ -1,42 +1,34 @@
-<org.lucasr.dspec.DesignSpecFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:designSpec="@raw/spec">
+    android:background="#fff"
+    tools:context="ph.org.mfi.jandrell.demoonmaterialdesign.NavigationDrawerFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:id="@+id/containerDrawerImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        tools:context="ph.org.mfi.jandrell.demoonmaterialdesign.NavigationDrawerFragment">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="@dimen/drawer_img_header_margin_bottom"
+            android:layout_marginTop="@dimen/drawer_margin_top" />
 
-        <LinearLayout
-            android:id="@+id/containerDrawerImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:orientation="vertical">
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="280dp"
-                android:layout_height="140dp"
-                android:layout_marginBottom="@dimen/drawer_img_header_margin_bottom"
-                android:layout_marginTop="@dimen/drawer_margin_top"
-                android:background="@color/material_deep_teal_500" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/containerDrawerImage">
 
-        </LinearLayout>
+    </android.support.v7.widget.RecyclerView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/drawerList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/containerDrawerImage">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </RelativeLayout>
-</org.lucasr.dspec.DesignSpecFrameLayout>
+</RelativeLayout>
 
