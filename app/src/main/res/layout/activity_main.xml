@@ -13,11 +13,13 @@
             android:id="@+id/app_bar"
             layout="@layout/app_bar" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/app_bar"
-            android:text="@string/hello_world" />
+        <fragment
+            android:id="@+id/fragment_news_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="ph.org.mfi.jandrell.demoonmaterialdesign.NewsFeedFragment"
+            tools:layout="@layout/fragment_news_feed"
+            android:layout_below="@+id/app_bar"/>
 
     </RelativeLayout>
 

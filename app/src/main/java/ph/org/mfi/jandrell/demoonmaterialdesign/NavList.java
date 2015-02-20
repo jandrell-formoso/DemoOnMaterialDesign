@@ -3,7 +3,7 @@ package ph.org.mfi.jandrell.demoonmaterialdesign;
 /**
  * Created by Jandrell on 2/11/2015.
  */
-public class Information {
+public class NavList {
     int iconId;
     String title;
 

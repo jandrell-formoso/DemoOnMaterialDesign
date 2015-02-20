@@ -16,11 +16,14 @@ import java.util.List;
  */
 public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.MyViewHolder> {
     private LayoutInflater inflater;
-    private List<Information> data = Collections.emptyList();
+    private List<NavList> data = Collections.emptyList();
+    private ItemClickListener itemClickListener;
+    private Context context;
 
-    public InfoAdapter(Context context, List<Information> data) {
+    public InfoAdapter(Context context, List<NavList> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
+        this.context = context;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder viewHolder, int i) {
-        Information currentObject = this.data.get(i);
+        NavList currentObject = this.data.get(i);
         viewHolder.title.setText(currentObject.getTitle());
         viewHolder.imageView.setImageResource(currentObject.getIconId());
     }
@@ -42,15 +45,32 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.MyViewHolder> 
         return this.data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    public void setItemClickListener(ItemClickListener clickListener) {
+        this.itemClickListener = clickListener;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
         private ImageView imageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             this.title = (TextView) itemView.findViewById(R.id.listText);
             this.imageView = (ImageView) itemView.findViewById(R.id.listIcon);
         }
+
+        @Override
+        public void onClick(View v) {
+//            context.startActivity(new Intent(context, HandbookActivity.class));
+            if(itemClickListener != null) {
+                itemClickListener.itemClicked(v, getPosition());
+            }
+        }
+    }
+
+    public interface ItemClickListener {
+        public void itemClicked(View view, int position);
     }
 }

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "ph.org.mfi.jandrell.demoonmaterialdesign"
+        applicationId "ph.org.mfi.jandrell.ph.org.mfi.jandrell.demoonmaterialdesign"
         minSdkVersion 9
         targetSdkVersion 21
         versionCode 1
