@@ -30,5 +30,14 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <LinearLayout
+        android:paddingTop="@dimen/divider_paddingTop"
+        android:background="#b6b6b6"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:paddingBottom="@dimen/divider_paddingBottom">
+
+    </LinearLayout>
+
 </RelativeLayout>
 

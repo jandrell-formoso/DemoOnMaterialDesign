@@ -73,7 +73,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Log.d("JD", "onCLick" + position);
-                Toast.makeText(getActivity(), "onClick " + position, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 1:
                         startActivity(new Intent(getActivity(), HandbookActivity.class));
@@ -85,7 +84,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onLongClick(View view, int position) {
                 Log.d("JD", "onLongCLick" + position);
-                Toast.makeText(getActivity(), "onLongClick " + position, Toast.LENGTH_SHORT).show();
             }
         }));
         return layout;
