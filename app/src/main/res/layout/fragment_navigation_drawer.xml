@@ -1,9 +1,12 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.lucasr.dspec.DesignSpecFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     tools:context="ph.org.mfi.jandrell.demoonmaterialdesign.NavigationDrawerFragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -24,20 +27,31 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/containerDrawerImage">
 
     </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
+        android:id="@+id/divider"
         android:paddingTop="@dimen/divider_paddingTop"
         android:background="#b6b6b6"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        android:paddingBottom="@dimen/divider_paddingBottom">
+        android:paddingBottom="@dimen/divider_paddingBottom"
+        android:orientation="vertical"
+        android:layout_below="@+id/drawerList">
 
     </LinearLayout>
 
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/settings_list"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
 </RelativeLayout>
 
+</org.lucasr.dspec.DesignSpecFrameLayout>

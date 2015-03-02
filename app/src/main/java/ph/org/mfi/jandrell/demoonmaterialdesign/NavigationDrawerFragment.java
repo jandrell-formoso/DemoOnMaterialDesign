@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +18,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import org.lucasr.dspec.DesignSpec;
+import org.lucasr.dspec.DesignSpecFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +66,17 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        RecyclerView settingsRecycler = new RecyclerView(getActivity());
         final View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        ArrayList<String> title = new ArrayList<>();
+        title.add("Home");
+        title.add("Handbook");
+        title.add("Settings");
+        title.add("Log out");
+        int[] icons = {R.drawable.ic_action_action_home, R.drawable.ic_action_action_book,
+                R.drawable.ic_action_settings, R.drawable.ic_action_action_book};
         this.recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-        infoAdapter = new InfoAdapter(getActivity(), getData());
+        infoAdapter = new InfoAdapter(getActivity(), getData(title, icons));
         this.recyclerView.setAdapter(infoAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), this.recyclerView, new ItemClickListener(){
@@ -77,7 +88,18 @@ public class NavigationDrawerFragment extends Fragment {
                     case 1:
                         startActivity(new Intent(getActivity(), HandbookActivity.class));
                         break;
-
+                    case 2:
+                        startActivity(new Intent(getActivity(), SettingsActivity.class));
+                        break;
+                    case 3:
+                        SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences.Editor edit = sh.edit();
+                        edit.putString(MainActivity.KEY_USERNAME, null);
+                        edit.putString(MainActivity.KEY_PASSWORD, null);
+                        edit.apply();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
                 }
             }
 
@@ -86,22 +108,40 @@ public class NavigationDrawerFragment extends Fragment {
                 Log.d("JD", "onLongCLick" + position);
             }
         }));
+//        title = new ArrayList<>();
+//        title.add("Settings");
+//        title.add("Logout");
+//        InfoAdapter settingsInfo = new InfoAdapter(getActivity(), getData(title, icons));
+//        settingsRecycler.setAdapter(settingsInfo);
+//        settingsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        settingsRecycler.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), settingsRecycler, new ItemClickListener(){
+//
+//            @Override
+//            public void onClick(View view, int position) {
+//                Log.d("JD", "onCLick" + position);
+//                switch (position) {
+//                    case 1:
+//                        startActivity(new Intent(getActivity(), HandbookActivity.class));
+//                        break;
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//                Log.d("JD", "onLongCLick" + position);
+//            }
+//        }));
+
         return layout;
     }
 
-    public static List<NavList> getData() {
+    public static List<NavList> getData(ArrayList<String> title, int[] icons) {
         List<NavList> data = new ArrayList<>();
-        String[] title = {
-                "Home", "Handbook"
-        };
-        int[] icons = {
-                R.drawable.ic_action_action_home,
-                R.drawable.ic_action_action_book
-        };
 
-        for(int i = 0; i<title.length && i<icons.length ; i++) {
+        for(int i = 0; i<title.size() && i<icons.length ; i++) {
             NavList info = new NavList();
-            info.setTitle(title[i]);
+            info.setTitle(title.get(i));
             info.setIconId(icons[i]);
             data.add(info);
         }
