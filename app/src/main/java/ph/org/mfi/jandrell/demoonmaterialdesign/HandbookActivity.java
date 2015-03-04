@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ph.org.mfi.jandrell.demoonmaterialdesign.tabs.SlidingTabLayout;
+import ph.org.mfi.jandrell.demoonmaterialdesign.widgets.SlidingTabLayout;
 
 
 public class HandbookActivity extends ActionBarActivity {

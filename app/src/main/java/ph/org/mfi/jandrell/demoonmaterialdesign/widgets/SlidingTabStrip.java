@@ -1,4 +1,4 @@
-package ph.org.mfi.jandrell.demoonmaterialdesign.tabs;
+package ph.org.mfi.jandrell.demoonmaterialdesign.widgets;
 /*
  * Copyright 2014 Google Inc. All rights reserved.
  *
