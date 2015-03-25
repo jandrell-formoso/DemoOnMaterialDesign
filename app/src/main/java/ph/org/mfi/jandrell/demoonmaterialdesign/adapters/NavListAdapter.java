@@ -1,4 +1,4 @@
-package ph.org.mfi.jandrell.demoonmaterialdesign;
+package ph.org.mfi.jandrell.demoonmaterialdesign.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,16 +11,19 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import ph.org.mfi.jandrell.demoonmaterialdesign.R;
+import ph.org.mfi.jandrell.demoonmaterialdesign.data.NavList;
+
 /**
  * Created by Jandrell on 2/11/2015.
  */
-public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.MyViewHolder> {
+public class NavListAdapter extends RecyclerView.Adapter<NavListAdapter.MyViewHolder> {
     private LayoutInflater inflater;
     private List<NavList> data = Collections.emptyList();
     private ItemClickListener itemClickListener;
     private Context context;
 
-    public InfoAdapter(Context context, List<NavList> data) {
+    public NavListAdapter(Context context, List<NavList> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
