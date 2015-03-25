@@ -1,4 +1,4 @@
-package ph.org.mfi.jandrell.demoonmaterialdesign;
+package ph.org.mfi.jandrell.demoonmaterialdesign.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

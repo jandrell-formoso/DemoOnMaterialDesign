@@ -1,9 +1,9 @@
-<ph.org.mfi.jandrell.demoonmaterialdesign.widgets.CustomSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ph.org.mfi.jandrell.demoonmaterialdesign.widgets.MultiSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refresh_news"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ph.org.mfi.jandrell.demoonmaterialdesign.NewsFeedFragment">
+    tools:context="ph.org.mfi.jandrell.demoonmaterialdesign.fragments.NewsFeedFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/news_feed_view"
@@ -11,4 +11,19 @@
         android:layout_height="wrap_content" />
 
 
-</ph.org.mfi.jandrell.demoonmaterialdesign.widgets.CustomSwipeRefreshLayout>
+</ph.org.mfi.jandrell.demoonmaterialdesign.widgets.MultiSwipeRefreshLayout>
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:id="@+id/refresh_news"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context="ph.org.mfi.jandrell.demoonmaterialdesign.fragments.NewsFeedFragment">-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/news_feed_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+
+<!--</LinearLayout>-->

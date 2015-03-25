@@ -2,6 +2,7 @@ package ph.org.mfi.jandrell.demoonmaterialdesign.widgets;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 /**
@@ -9,8 +10,12 @@ import android.util.AttributeSet;
  */
 public class CustomSwipeRefreshLayout extends SwipeRefreshLayout {
 
-    public CustomSwipeRefreshLayout(Context context) {
+    RecyclerView recyclerView;
+    public boolean canScrollChild;
+
+    public CustomSwipeRefreshLayout(Context context, RecyclerView view) {
         super(context);
+        recyclerView = view;
     }
 
     public CustomSwipeRefreshLayout(Context context, AttributeSet attrs) {
@@ -19,7 +24,17 @@ public class CustomSwipeRefreshLayout extends SwipeRefreshLayout {
 
     @Override
     public boolean canChildScrollUp() {
-        return true;
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dx == 0) {
+                    canScrollChild = false;
+                } else {
+                    canScrollChild = true;
+                }
+            }
+        });
+        return canScrollChild;
     }
 
 

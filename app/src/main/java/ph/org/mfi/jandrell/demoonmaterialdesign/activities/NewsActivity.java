@@ -1,16 +1,14 @@
-package ph.org.mfi.jandrell.demoonmaterialdesign;
+package ph.org.mfi.jandrell.demoonmaterialdesign.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+import ph.org.mfi.jandrell.demoonmaterialdesign.fragments.NewsFeedFragment;
 import ph.org.mfi.jandrell.demoonmaterialdesign.R;
 
 public class NewsActivity extends ActionBarActivity {

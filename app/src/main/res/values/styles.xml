@@ -12,6 +12,8 @@
     </style>
 
     <style name="MyCurrentActionBar" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:tabStripEnabled">true</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
     </style>
 
 </resources>

@@ -13,6 +13,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLConnection;
 import java.util.List;
 
 /**
@@ -110,7 +111,6 @@ public class ServiceHandler {
                 if (params != null) {
                     httpPost.setEntity(new UrlEncodedFormEntity(params));
                 }
-
                 httpResponse = httpClient.execute(httpPost);
 
             }
