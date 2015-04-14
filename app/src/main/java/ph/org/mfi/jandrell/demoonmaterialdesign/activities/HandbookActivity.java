@@ -116,7 +116,7 @@ public class HandbookActivity extends ActionBarActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View layout = inflater.inflate(R.layout.fragment_my, container, false);
+            View layout = inflater.inflate(R.layout.fragment_weekly_reports, container, false);
             recyclerView = (RecyclerView) layout.findViewById(R.id.card_view_my);
             List<CardViewInfo> data = Collections.emptyList();
             recyclerView.setAdapter(new CardViewAdapter(data, getActivity(), MyFragment.position));

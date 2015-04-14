@@ -32,8 +32,8 @@ public class NewsActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
 
-        newsTitle.setText(intent.getStringExtra(NewsFeedFragment.TAG_NEWS_TITLE));
-        newsContent.setText(intent.getStringExtra(NewsFeedFragment.TAG_NEWS_CONTENT));
+        newsTitle.setText(intent.getStringExtra(NewsFeedFragment.KEY_NEWS_TITLE));
+        newsContent.setText(intent.getStringExtra(NewsFeedFragment.KEY_NEWS_CONTENT));
 
 
     }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,6 +27,16 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.NewsFe
         this.inflater = LayoutInflater.from(context);
         this.newsFeedInfos = data;
         this.context = context;
+    }
+
+    public NewsFeedAdapter(Context context) {
+        this.inflater = LayoutInflater.from(context);
+        this.context = context;
+    }
+
+    public void setNewsFeedInfos(ArrayList<NewsFeedInfo> newsFeedList) {
+        this.newsFeedInfos = newsFeedList;
+        notifyItemRangeChanged(0, newsFeedList.size());
     }
 
     @Override

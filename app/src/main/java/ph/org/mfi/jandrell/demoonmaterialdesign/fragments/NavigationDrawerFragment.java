@@ -108,7 +108,6 @@ public class NavigationDrawerFragment extends Fragment {
                             nFragment.setEnterTransition(fade);
                         }
                         fragmentTransaction.replace(R.id.fragment_container, nFragment);
-                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         mToolbar.setTitle("MFI");
                         mDrawerLayout.closeDrawer(contentView);
@@ -116,14 +115,12 @@ public class NavigationDrawerFragment extends Fragment {
                     case 1:
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.fragment_container, new HandbookFragment());
-                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         mToolbar.setTitle("Handbook");
                         tabs = (SlidingTabLayout) view.findViewById(R.id.tabs);
                         mDrawerLayout.closeDrawer(contentView);
                         break;
                     case 2:
-                        startActivity(new Intent(getActivity(), SettingsActivity.class));
                         break;
                     case 3:
                         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getActivity());

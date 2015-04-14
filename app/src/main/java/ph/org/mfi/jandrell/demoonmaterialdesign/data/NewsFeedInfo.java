@@ -2,6 +2,7 @@ package ph.org.mfi.jandrell.demoonmaterialdesign.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by Jandrell on 2/14/2015.
  */
-public class NewsFeedInfo {
+public class NewsFeedInfo implements Parcelable {
     private String mId;
     private String mTitle;
     private String mBody;
@@ -24,6 +25,14 @@ public class NewsFeedInfo {
         this.mBody = mBody;
         this.mPublishDate = mPublishDate;
         this.mPosterId = mPosterId;
+    }
+
+    public NewsFeedInfo(Parcel source) {
+        mId = source.readString();
+        mTitle = source.readString();
+        mBody = source.readString();
+        mPosterId = source.readString();
+        mPublishDate = source.readString();
     }
 
     public String getmId() {
@@ -67,5 +76,32 @@ public class NewsFeedInfo {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mBody);
+        dest.writeString(mPosterId);
+        dest.writeString(mPublishDate);
+    }
+
+    public static final Creator<NewsFeedInfo> CREATOR
+            = new Creator<NewsFeedInfo>() {
+
+        @Override
+        public NewsFeedInfo createFromParcel(Parcel source) {
+            Log.d("JD", "create from parcel");
+            return new NewsFeedInfo(source);
+        }
+
+        @Override
+        public NewsFeedInfo[] newArray(int size) {
+            return new NewsFeedInfo[size];
+        }
+    };
 }

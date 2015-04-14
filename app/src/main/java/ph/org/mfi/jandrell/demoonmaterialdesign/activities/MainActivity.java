@@ -1,8 +1,11 @@
 package ph.org.mfi.jandrell.demoonmaterialdesign.activities;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -38,8 +41,8 @@ public class MainActivity extends ActionBarActivity {
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, new NewsFeedFragment());
-        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         fragmentTransaction.commit();
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
@@ -70,6 +73,16 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
+        } else if(id == R.id.action_notification) {
+            int notificationId = 001;
+            NotificationCompat.Builder notifBuilder =
+                    new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("My Notification")
+                    .setContentText("This is my new notification.")
+                    .setDefaults(Notification.DEFAULT_ALL);
+            NotificationManager notifManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notifManager.notify(notificationId, notifBuilder.build());
         }
 
         return super.onOptionsItemSelected(item);
