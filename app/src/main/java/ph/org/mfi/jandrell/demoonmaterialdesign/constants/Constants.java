@@ -6,8 +6,8 @@ package ph.org.mfi.jandrell.demoonmaterialdesign.constants;
 public interface Constants {
 
     public static final int TAB_SUM_OF_ALT = 0;
-    public static final int TAB_DTR = 1;
-    public static final int TAB_WEEKLY = 2;
+    public static final int TAB_DTR = 0;
+    public static final int TAB_WEEKLY = 1;
 
     public static final String KEY_URL_MFI = "http://mfiapp.site88.net/mfi_app/RestfulService/";
     public static final String KEY_URL_USER_ID = "user_id";

@@ -17,6 +17,9 @@ public class Keys {
         public static final String KEY_DIFFICULTIES = "difficulties";
     }
     public static class DTRKeys {
+        public static final String KEY_URLParam_DTR = "dtr";
+        public static final String KEY_USER_DTR = "user_dtr";
+        public static final String KEY_DTR = "dtr";
         public static final String KEY_DTR_ID = "dtr_id";
         public static final String KEY_OJT_ID = "ojt_id";
         public static final String KEY_INFO_ID = "info_id";

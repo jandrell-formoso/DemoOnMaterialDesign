@@ -17,7 +17,7 @@ public class VolleySingleton {
     private RequestQueue mRequestQueue;
     private ImageLoader imageLoader;
 
-    public VolleySingleton() {
+    private VolleySingleton() {
         mRequestQueue = Volley.newRequestQueue(MFIApplication.getAppContext());
         imageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
 

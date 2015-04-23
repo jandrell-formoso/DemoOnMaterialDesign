@@ -1,6 +1,8 @@
 package ph.org.mfi.jandrell.demoonmaterialdesign.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -38,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import ph.org.mfi.jandrell.demoonmaterialdesign.R;
+import ph.org.mfi.jandrell.demoonmaterialdesign.activities.WeeklyReportsActivity;
 import ph.org.mfi.jandrell.demoonmaterialdesign.adapters.WeeklyReportsAdapter;
 import ph.org.mfi.jandrell.demoonmaterialdesign.constants.Constants;
 import ph.org.mfi.jandrell.demoonmaterialdesign.data.WeeklyReportsData;
@@ -112,10 +119,35 @@ public class WeeklyReportsFragment extends Fragment implements SwipeRefreshLayou
             @Override
             public void run() {
                 refreshLayout.setRefreshing(true);
+                sendWeeklyReportRequest();
             }
         });
-        recyclerView.setAdapter(weeklyReportsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addOnItemTouchListener(new ReportsTouchListener(getActivity(), recyclerView, new OnClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                //TODO: Weekly Reports Intent
+                Toast.makeText(getActivity(), "Weekly report " + (position+1) + " clicked.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), WeeklyReportsActivity.class);
+                TextView weekNo = (TextView) view.findViewById(R.id.week_no);
+                TextView startDate = (TextView) view.findViewById(R.id.start_date);
+                TextView endDate = (TextView) view.findViewById(R.id.end_date);
+                TextView accomplishment = (TextView) view.findViewById(R.id.accomplishments);
+                TextView difficulties = (TextView) view.findViewById(R.id.difficulties);
+
+                intent.putExtra(WeeklyReportsActivity.EXTRA_WEEK_NO, weekNo.getText());
+                intent.putExtra(WeeklyReportsActivity.EXTRA_START_DATE, startDate.getText());
+                intent.putExtra(WeeklyReportsActivity.EXTRA_END_DATE, endDate.getText());
+                intent.putExtra(WeeklyReportsActivity.EXTRA_ACCOMPLISHMENTS, accomplishment.getText());
+                intent.putExtra(WeeklyReportsActivity.EXTRA_DIFFICULTIES, difficulties.getText());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         return view;
     }
 
@@ -131,7 +163,12 @@ public class WeeklyReportsFragment extends Fragment implements SwipeRefreshLayou
             public void onResponse(JSONObject response) {
                 weeklyReports = parseWeeklyJSON(response);
                 weeklyReportsAdapter = new WeeklyReportsAdapter(weeklyReports, getActivity());
+                recyclerView.setAdapter(weeklyReportsAdapter);
                 (reportsView.findViewById(R.id.linlaHeaderProgress)).setVisibility(View.GONE);
+                CardView cardView = (CardView) reportsView.findViewById(R.id.handbook_card_error);
+                if(cardView.getVisibility() == View.VISIBLE) {
+                    cardView.setVisibility(View.GONE);
+                }
                 if(refreshLayout.isRefreshing()) {
                     refreshLayout.setRefreshing(false);
                 }
@@ -141,6 +178,8 @@ public class WeeklyReportsFragment extends Fragment implements SwipeRefreshLayou
             public void onErrorResponse(VolleyError error) {
                 String errorMessage = validateError(error);
                 CardView cardView = (CardView) reportsView.findViewById(R.id.handbook_card_error);
+                TextView errorView = (TextView) reportsView.findViewById(R.id.error_message);
+                errorView.setText(errorMessage);
                 cardView.setVisibility(View.VISIBLE);
                 Log.d("JD", errorMessage);
             }
@@ -200,5 +239,49 @@ public class WeeklyReportsFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         sendWeeklyReportRequest();
+    }
+
+    public static interface OnClickListener {
+        public void onClick(View view, int position);
+        public void onLongClick(View view, int position);
+    }
+
+    class ReportsTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private OnClickListener onClickListener;
+
+        public ReportsTouchListener(Context context, final RecyclerView recyclerView, final OnClickListener onClickListener) {
+            this.onClickListener = onClickListener;
+            this.gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if(childView != null && onClickListener != null) {
+                        onClickListener.onLongClick(childView, recyclerView.getChildLayoutPosition(childView));
+                    }
+                    super.onLongPress(e);
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View childView = rv.findChildViewUnder(e.getX(), e.getY());
+            if(childView != null && onClickListener != null && gestureDetector.onTouchEvent(e)) {
+                this.onClickListener.onClick(childView, rv.getChildLayoutPosition(childView));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
     }
 }

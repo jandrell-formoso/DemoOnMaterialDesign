@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/containerDrawerImage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.pkmmte.view.CircularImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:background="@drawable/ic_action_account_circle"
+        app:border="true"
+        app:border_color="#EEEEEE"
+        app:border_width="4dp"
+        app:shadow="true" />
+    <TextView
+        android:id="@+id/txt_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dummy_text"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="56dp"
+        android:layout_marginBottom="8dp"
+        />
+
+</LinearLayout>

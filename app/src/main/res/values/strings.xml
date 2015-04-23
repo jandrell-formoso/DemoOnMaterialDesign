@@ -10,8 +10,7 @@
     <string name="title_activity_handbook">Handbook</string>
 
     <string-array name="tabs">
-        <item>Summary of ALT</item>
-        <item>Monthly Monitoring</item>
+        <item>DTR</item>
         <item>Weekly Report</item>
     </string-array>
 
@@ -25,5 +24,13 @@
     <string name="title_notif">Notification</string>
     <string name="connection_failure">Connection Failure</string>
     <string name="dummy_text">Dummy Text</string>
+    <string name="title_activity_weekly_reports">Weekly Reports</string>
+    <string name="title_view">View</string>
+    <string name="title_accomplisments">Accomplishments</string>
+    <string name="title_difficulties">Difficulties</string>
+    <string name="title_header">Header</string>
+    <string name="drawer_name_home">Home</string>
+    <string name="drawer_name_handbook">Handbook</string>
+    <string name="drawer_name_logout">Logout</string>
 
 </resources>

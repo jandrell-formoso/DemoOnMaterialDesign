@@ -10,6 +10,22 @@
         <!--<item name="android:colorControlHighlight">@color/colorHighlight</item>-->
     </style>
 
-    
+    <style name="AppTheme.White" parent="AppTheme.Base">
+        <item name="android:colorPrimaryDark">@color/colorMaterialGray500</item>
+    </style>
+
+    <style name="MyCurrentActionBar.White" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:tabStripEnabled">true</item>
+        <item name="android:textColorSecondary">@android:color/black</item>
+        <item name="android:colorPrimaryDark">@color/colorMaterialGray500</item>
+    </style>
+
+
+    <style name="CustomTheme" parent="MaterialDrawerTheme">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+
+    </style>
 
 </resources>

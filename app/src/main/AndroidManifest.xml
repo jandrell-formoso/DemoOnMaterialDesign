@@ -7,14 +7,16 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".application.MFIApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".application.MFIApplication"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:configChanges="orientation">
         </activity>
         <activity
             android:name=".activities.HandbookActivity"
@@ -25,7 +27,7 @@
         </activity>
         <activity
             android:name=".activities.NewsActivity"
-            android:label="@string/title_activity_news" >
+            android:label="@string/title_activity_news">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ph.org.mfi.jandrell.demoonmaterialdesign.activities.MainActivity" />
@@ -33,7 +35,7 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
-            android:noHistory="true">
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,6 +48,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ph.org.mfi.jandrell.demoonmaterialdesign.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.WeeklyReportsActivity"
+            android:label="@string/title_activity_weekly_reports"
+            android:theme="@style/AppTheme.White"
+            android:parentActivityName=".activities.HandbookActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ph.org.mfi.jandrell.demoonmaterialdesign.activities.HandbookActivity" />
         </activity>
     </application>
 

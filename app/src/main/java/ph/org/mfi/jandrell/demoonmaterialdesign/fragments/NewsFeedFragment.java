@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -170,7 +171,7 @@ public class NewsFeedFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(recyclerView.getChildAdapterPosition(recyclerView.findChildViewUnder(dx, dy)) == -1) {
+                if(recyclerView.getChildLayoutPosition(recyclerView.findChildViewUnder(dx, dy)) == -1) {
                     actionBar.setElevation(0);
                 } else {
                     actionBar.setElevation(10);
@@ -240,12 +241,12 @@ public class NewsFeedFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onErrorResponse(VolleyError error) {
                 newsList = new ArrayList<>();
-                AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
-                dialog.setTitle("Information");
+                Toast toast = new Toast(getActivity());
+                toast.setDuration(Toast.LENGTH_LONG);
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     NewsFeedInfo noNews = new NewsFeedInfo(null, "No Data Retrieved", "Swipe up to refresh", null, null);
                     newsList.add(noNews);
-                    dialog.setMessage("No Connection.");
+                    toast = Toast.makeText(getActivity(), "No Connection.", Toast.LENGTH_LONG);
 
                 } else if (error instanceof AuthFailureError) {
                     //TODO - Authentication Failure
@@ -254,18 +255,12 @@ public class NewsFeedFragment extends Fragment implements SwipeRefreshLayout.OnR
                 } else if (error instanceof NetworkError) {
                     NewsFeedInfo noNews = new NewsFeedInfo(null, "Network Error", "Swipe up to refresh", null, null);
                     newsList.add(noNews);
-                    dialog.setMessage("Network Error.");
+                    toast = Toast.makeText(getActivity(), "Network error.", Toast.LENGTH_LONG);
                 } else if (error instanceof ParseError) {
                     //TODO - Parse Error
-                    dialog.setMessage("Parse Error.");
+                    toast = Toast.makeText(getActivity(), "Parse error.", Toast.LENGTH_LONG);
                 }
-                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                toast.show();
                 if (refreshNews.isRefreshing()) {
                     refreshNews.setRefreshing(false);
                 }

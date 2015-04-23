@@ -5,4 +5,8 @@
     <color name="colorAccent">#607D8B</color>
     <color name="colorListNavTitle">#000000</color>
     <color name="colorHighlight">#B6B6B6</color>
+    <color name="colorTabIndicator">#0288D1</color>
+    <color name="colorMaterialGray50">#FAFAFA</color>
+    <color name="colorMaterialGray500">#9E9E9E</color>
+    <color name="colorMaterialBlueGray600">#546E7A</color>
 </resources>

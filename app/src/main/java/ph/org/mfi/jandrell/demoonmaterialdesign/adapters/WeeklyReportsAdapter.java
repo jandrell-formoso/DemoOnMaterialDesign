@@ -47,6 +47,8 @@ public class WeeklyReportsAdapter extends RecyclerView.Adapter<WeeklyReportsAdap
         holder.weekNo.setText(report.getWeekNo() + "");
         holder.startDate.setText(TEXT_DATE_STARTED + ": " + dateFormat.format(report.getStartDate()));
         holder.endDate.setText(TEXT_DATE_ENDED + ": " + dateFormat.format(report.getEndDate()));
+        holder.accomplishment.setText(report.getAccomplishments());
+        holder.difficulties.setText(report.getDifficulties());
     }
 
 
@@ -60,12 +62,16 @@ public class WeeklyReportsAdapter extends RecyclerView.Adapter<WeeklyReportsAdap
         private TextView weekNo;
         private TextView startDate;
         private TextView endDate;
+        private TextView accomplishment;
+        private TextView difficulties;
 
         public ViewHolder(View itemView) {
             super(itemView);
             weekNo = (TextView) itemView.findViewById(R.id.week_no);
             startDate = (TextView) itemView.findViewById(R.id.start_date);
             endDate = (TextView) itemView.findViewById(R.id.end_date);
+            accomplishment = (TextView) itemView.findViewById(R.id.accomplishments);
+            difficulties = (TextView) itemView.findViewById(R.id.difficulties);
         }
     }
 }

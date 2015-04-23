@@ -46,6 +46,7 @@ public class HandbookFragment extends Fragment {
     private static FragmentTransaction transaction;
     private static ArrayList<WeeklyReportsData> weeklyReports;
     private static int position;
+    private HandbookFragment.MyPagerAdapter mPagerAdapter;
 
     RecyclerView recyclerView;
 
@@ -87,7 +88,7 @@ public class HandbookFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -95,10 +96,10 @@ public class HandbookFragment extends Fragment {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
         mTabs = (SlidingTabLayout) layout.findViewById(R.id.tabs);
         mPager = (ViewPager) layout.findViewById(R.id.pager);
-        mPager.setCurrentItem(position);
-        mPager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager()));
+        mPagerAdapter = new MyPagerAdapter(getActivity().getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
         mTabs.setViewPager(mPager);
-        mTabs.setDistributeEvenly(false);
+        mTabs.setDistributeEvenly(true);
         mTabs.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
@@ -106,21 +107,17 @@ public class HandbookFragment extends Fragment {
                 return getResources().getColor(android.R.color.white);
             }
         });
+
+//        mTabs.setSelectedIndicatorColors(getResources().getColor(android.R.color.white));
         mTabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Log.d("JD", "onPageSelected position: " + position);
-                MyFragment.position = position;
-                MyFragment myFragment = MyFragment.getInstanceOf(MyFragment.position);
+                mPagerAdapter.getItem(position);
             }
         });
-
-//        mTabs.setSelectedIndicatorColors(getResources().getColor(android.R.color.white));
-
         return layout;
     }
-
 
     class MyPagerAdapter extends FragmentPagerAdapter {
 
@@ -130,23 +127,10 @@ public class HandbookFragment extends Fragment {
             super(fm);
             tabs = getResources().getStringArray(R.array.tabs);
         }
-
         @Override
         public Fragment getItem(int position) {
             Log.d("JD", "getItem position: " + position);
-            Fragment fragment = null;
-            switch(position) {
-                case Constants.TAB_SUM_OF_ALT:
-                    fragment = MyFragment.getInstanceOf(position);
-                    break;
-                case Constants.TAB_DTR:
-                    fragment = MyFragment.getInstanceOf(position);
-                    break;
-                case Constants.TAB_WEEKLY:
-                    fragment = new WeeklyReportsFragment();
-                    break;
-            }
-            return fragment;
+            return MyFragment.getInstanceOf(position);
         }
 
         @Override
@@ -164,10 +148,18 @@ public class HandbookFragment extends Fragment {
         private static int position = 0;
         RecyclerView cardRecyclerView;
 
-        public static MyFragment getInstanceOf(int position) {
+        public static Fragment getInstanceOf(int position) {
             Log.d("JD", "getInstanceOf position: " + position);
-            MyFragment myFragment = new MyFragment();
-            return myFragment;
+            Fragment fragment = null;
+            switch(position) {
+                case Constants.TAB_DTR:
+                    fragment = DTRFragment.newInstance("", "");
+                    break;
+                case Constants.TAB_WEEKLY:
+                    fragment = WeeklyReportsFragment.newInstance("", "");
+                    break;
+            }
+            return fragment;
         }
 
         @Override
@@ -263,12 +255,6 @@ public class HandbookFragment extends Fragment {
 //            return data;
 //        }
 
-
-
-        public static interface OnItemTouchListener {
-            public void onClick(View view, int position);
-            public void onLongClick(View view, int position);
-        }
     }
 
 

@@ -51,6 +51,8 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
+    private List<NavList> navLists;
+    private int selectedDrawerItem;
 
     private NavListAdapter navListAdapter;
 
@@ -85,20 +87,21 @@ public class NavigationDrawerFragment extends Fragment {
         ArrayList<String> title = new ArrayList<>();
         title.add("Home");
         title.add("Handbook");
-        title.add("Settings");
         title.add("Log out");
         int[] icons = {R.drawable.ic_action_action_home, R.drawable.ic_action_action_book,
-                R.drawable.ic_action_settings, R.drawable.ic_action_action_book};
+                R.drawable.ic_action_action_exit_to_app};
         this.recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-        navListAdapter = new NavListAdapter(getActivity(), getData(title, icons));
+        navLists = getData(title, icons);
+        navListAdapter = new NavListAdapter(getActivity(), navLists, selectedDrawerItem);
         this.recyclerView.setAdapter(navListAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         this.recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), this.recyclerView, new ItemClickListener() {
 
             @Override
             public void onClick(View view, int position) {
                 Log.d("JD", "onCLick" + position);
-                switch (position) {
+                switch (position - 1) {
                     case 0:
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         NewsFeedFragment nFragment = new NewsFeedFragment();
@@ -111,18 +114,20 @@ public class NavigationDrawerFragment extends Fragment {
                         fragmentTransaction.commit();
                         mToolbar.setTitle("MFI");
                         mDrawerLayout.closeDrawer(contentView);
+                        navListAdapter.setSelectedItem(navLists.get(position - 1));
+                        selectedDrawerItem = 0;
                         break;
                     case 1:
                         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, new HandbookFragment());
+                        fragmentTransaction.replace(R.id.fragment_container, HandbookFragment.newInstance("", ""));
                         fragmentTransaction.commit();
                         mToolbar.setTitle("Handbook");
                         tabs = (SlidingTabLayout) view.findViewById(R.id.tabs);
                         mDrawerLayout.closeDrawer(contentView);
+                        navListAdapter.setSelectedItem(navLists.get(position-1));
+                        selectedDrawerItem = 1;
                         break;
                     case 2:
-                        break;
-                    case 3:
                         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getActivity());
                         SharedPreferences.Editor edit = sh.edit();
                         edit.putString(MainActivity.KEY_USERNAME, null);
@@ -132,6 +137,7 @@ public class NavigationDrawerFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
                         getActivity().finish();
+                        break;
                 }
             }
 
@@ -183,10 +189,11 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar, int selectedDrawerItem) {
         contentView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
         mToolbar = toolbar;
+        this.selectedDrawerItem = selectedDrawerItem;
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
